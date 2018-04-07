@@ -22,7 +22,9 @@ module.exports = {
     port: 9000
   },
   plugins: [
-    new HtmlWebpackPlugin()
+    new HtmlWebpackPlugin({
+      template: path.resolve(demo, 'index.html')
+    })
   ],
   module: {
     rules: [
