@@ -1,5 +1,3 @@
-const isStatelessComponent = el => typeof el === 'function'
-
 function createElement(type, props, ...children) {
   return {
     type,
