@@ -1,23 +1,21 @@
 const isStatelessComponent = el => typeof el === 'function'
 
 function createElement(type, props, ...children) {
-  if (isStatelessComponent(type)) {
-    return type({ ...props, children })
+  return {
+    type,
+    props: {
+      ...props,
+      children: children.length === 1 ? children[0] : children,
+    },
   }
-
-  const element = document.createElement(type)
-
-  children.forEach(child => {
-    if (typeof child === 'object') {
-      element.appendChild(child)
-    } else {
-      element.innerHTML += child
-    }
-  })
-
-  return element
 }
 
-export {
-  createElement,
+export class Component {
+  constructor(props) {
+    this.props = props
+  }
+}
+
+export default {
+  createElement
 }

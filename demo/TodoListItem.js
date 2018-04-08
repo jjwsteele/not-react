@@ -1,13 +1,13 @@
-import { createElement } from 'not-react/NotReact'
+import NotReact from '../src/NotReact'
 
-const TodoListItem = ({ task }) => createElement(
+const TodoListItem = ({ task }) => NotReact.createElement(
   'li',
   null,
   task.name,
-  createElement(
+  NotReact.createElement(
     'ul',
     null,
-    createElement('li', null, task.description),
+    NotReact.createElement('li', null, task.description),
   )
 )
 

@@ -1,10 +1,10 @@
-import { createElement } from 'not-react/NotReact'
+import NotReact from '../src/NotReact'
 import TodoListItem from './TodoListItem'
 
-const TodoList = ({ tasks }) => createElement(
+const TodoList = ({ tasks }) => NotReact.createElement(
   'ul',
   null,
-  ...tasks.map(task => createElement(TodoListItem, { task }, null))
+  ...tasks.map(task => NotReact.createElement(TodoListItem, { task }, null))
 )
 
 export default TodoList

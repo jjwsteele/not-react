@@ -11,11 +11,6 @@ module.exports = {
     path: dist,
     filename: 'demo.bundle.js'
   },
-  resolve: {
-    alias: {
-      'not-react': src
-    }
-  },
   devServer: {
     contentBase: dist,
     compress: true,
@@ -32,10 +27,7 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env']
-          }
+          loader: 'babel-loader'
         }
       }
     ]

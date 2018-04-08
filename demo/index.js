@@ -1,5 +1,5 @@
-import render from 'not-react/NotReactDom'
-import { createElement } from 'not-react/NotReact'
+import { render } from '../src/NotReactDom'
+import NotReact from '../src/NotReact'
 import TodoList from './TodoList'
 
 const tasks = [
@@ -17,7 +17,7 @@ const tasks = [
   }
 ]
 
-const todoList = createElement(
+const todoList = NotReact.createElement(
   TodoList,
   { tasks },
   null
