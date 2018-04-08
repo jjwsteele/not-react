@@ -12,10 +12,21 @@ function createElement(type, props, ...children) {
 
 export class Component {
   constructor(props) {
+    this.state = {}
     this.props = props
+    this.update = () => {} // set by renderer (NotReactDOM)
+    this.setState = this.setState.bind(this)
+  }
+
+  setState(newState) {
+    this.state = {
+      ...this.state,
+      ...newState,
+    }
+    this.update()
   }
 }
 
 export default {
-  createElement
+  createElement,
 }

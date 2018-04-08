@@ -121,4 +121,25 @@ describe('render', () => {
     expect(domElement).toBeInstanceOf(HTMLDivElement)
     expect(domElement.innerHTML).toEqual('<div><label>FirstName</label><input><button>Submit</button></div><button>Reset</button>')    
   })
+
+  it('should add event listeners for props with \'on\' prefix', () => {
+    const handleClick = jest.fn()
+    const virtualDom = {
+      type: Button,
+      props: {
+        onClick: handleClick,
+        children: 'Click me!',
+      },
+    }
+    const domElement = render(virtualDom, dummyContainer)
+
+    expect(handleClick.mock.calls.length).toBe(0)
+    domElement.click()
+    expect(handleClick.mock.calls.length).toBe(1)
+    domElement.click()
+    domElement.click()
+    domElement.click()
+    domElement.click()
+    expect(handleClick.mock.calls.length).toBe(5)
+  })
 })
