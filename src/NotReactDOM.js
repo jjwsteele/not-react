@@ -3,11 +3,15 @@ import { Component } from '../src/NotReact'
 let rootElement
 let rootContainer
 
+/*
+ * This is a bit silly, and will likely not work when the DOM structure changes
+ * between renders
+ */
 const instanceTracker = {
   instanceMap: {},
   counter: 0,
-  getNextClass: () => instanceTracker.instanceMap[++instanceTracker.counter],
-  setCurrentClass: (instance) => {
+  getNext: () => instanceTracker.instanceMap[++instanceTracker.counter],
+  setCurrent: (instance) => {
     instanceTracker.instanceMap[instanceTracker.counter] = instance
   },
   reset: () => {
@@ -25,15 +29,19 @@ function isStatelessComponent(element) {
   return typeof element.type === 'function'
 }
 
+function getClassInstance(element) {
+  const instance = instanceTracker.getNext() || new element.type(element.props)
+  instance.update = update
+  instanceTracker.setCurrent(instance)
+
+  return instance
+}
+
 function refine(element) {
   if (typeof element === 'string') {
     return element
   } else if (isClass(element)) {
-    const instance = instanceTracker.getNextClass() || new element.type(element.props)
-    instance.update = update
-    instanceTracker.setCurrentClass(instance)
-
-    return refine(instance.render())
+    return refine(getClassInstance(element).render())
   } else if (isStatelessComponent(element)) {
     return refine(element.type(element.props))
   }
